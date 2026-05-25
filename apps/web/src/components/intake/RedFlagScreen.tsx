@@ -1,4 +1,4 @@
-export function RedFlagScreen() {
+export function RedFlagScreen({ onBack }: { onBack: () => void }) {
   return (
     <div className="mx-auto max-w-lg rounded-card border border-brRed/40 bg-brRed/10 p-8 text-center shadow-glow">
       <p className="section-label text-brRed">Clinical Safety</p>
@@ -16,6 +16,13 @@ export function RedFlagScreen() {
       <p className="mt-6 text-xs text-brMuted">
         If this is an emergency, call 911 or go to your nearest emergency department.
       </p>
+      <button
+        type="button"
+        onClick={onBack}
+        className="mt-6 cursor-pointer rounded-card border border-brMuted px-6 py-2 font-poppins text-sm text-brMuted transition-colors hover:text-ivory"
+      >
+        Go Back & Correct My Answer
+      </button>
     </div>
   );
 }

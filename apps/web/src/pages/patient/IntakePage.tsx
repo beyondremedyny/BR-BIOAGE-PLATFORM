@@ -125,7 +125,7 @@ export default function PatientIntakePage() {
   if (redFlag) {
     return (
       <AppShell title="Clinical Safety">
-        <RedFlagScreen />
+        <RedFlagScreen onBack={() => setRedFlag(false)} />
       </AppShell>
     );
   }
