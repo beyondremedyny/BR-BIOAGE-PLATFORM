@@ -1,0 +1,1 @@
+ALTER TABLE "ReportCard" ADD COLUMN IF NOT EXISTS "retestReminderSentAt" TIMESTAMP(3);

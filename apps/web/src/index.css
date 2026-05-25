@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .section-label {
+    @apply font-orbitron text-xs tracking-[0.35em] uppercase text-sandstone;
+  }
+}
+
+/* Native <select> dropdown options — force dark background across all browsers */
+select {
+  color-scheme: dark;
+}
+
+select option {
+  background-color: #383838;
+  color: #fafafa;
+}

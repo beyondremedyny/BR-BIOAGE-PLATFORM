@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id          String   @id @default(cuid())
+  clerkId     String   @unique
+  firstName   String
+  lastName    String
+  dateOfBirth DateTime
+  sex         String
+  ethnicity   String?
+  email       String   @unique
+  phone       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  intakeSessions IntakeSession[]
+  labUploads     LabUpload[]
+  reportCards    ReportCard[]
+}
+
+model Clinician {
+  id         String   @id @default(cuid())
+  clerkId    String   @unique
+  name       String
+  credential String
+  email      String   @unique
+  createdAt  DateTime @default(now())
+
+  reportCards ReportCard[]
+}
+
+model IntakeSession {
+  id               String    @id @default(cuid())
+  patientId        String
+  patient          Patient   @relation(fields: [patientId], references: [id])
+  completedAt      DateTime?
+  answers          Json
+  domain5Tier      String?
+  domain5Delta     Float?
+  clinicalRiskTier String?
+  redFlagTriggered Boolean   @default(false)
+  redFlags         String[]
+  biometrics       Json?
+  medicationFlags  String[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model LabUpload {
+  id               String    @id @default(cuid())
+  patientId        String
+  patient          Patient   @relation(fields: [patientId], references: [id])
+  s3Key            String
+  s3Url            String
+  fileName         String
+  fileType         String
+  labSource        String?
+  reportDate       String?
+  extractedRaw     Json?
+  extractedMarkers Json?
+  unmappedMarkers  Json?
+  aiNotes          String?
+  confirmedAt      DateTime?
+  confirmedBy      String?
+  createdAt        DateTime  @default(now())
+}
+
+model ReportCard {
+  id                String     @id @default(cuid())
+  patientId         String
+  patient           Patient    @relation(fields: [patientId], references: [id])
+  clinicianId       String?
+  clinician         Clinician? @relation(fields: [clinicianId], references: [id])
+  intakeSessionId   String?
+  labUploadIds      String[]
+  d1Delta           Float?
+  d2Delta           Float?
+  d3Delta           Float?
+  d4Delta           Float?
+  d5Delta           Float?
+  markers           Json?
+  masterDelta       Float?
+  biologicalAge     Int?
+  chronologicalAge  Int?
+  confidence        Int?
+  clinicalRiskTier  String?
+  biometrics        Json?
+  recommendations   Json?
+  status            String     @default("draft")
+  assessmentDate    DateTime   @default(now())
+  pdfUrl                String?
+  publishedAt           DateTime?
+  retestReminderSentAt  DateTime?
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+}
