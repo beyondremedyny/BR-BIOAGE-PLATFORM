@@ -135,16 +135,16 @@ labsRouter.patch('/uploads/:id/markers/:markerId', requireAuth(), requireClinici
       return res.status(400).json({ error: 'Valid numeric value required' });
     }
 
-    const markerId = req.params.markerId;
+    const markerId = req.params.markerId as string;
     const upload = await prisma.labUpload.findUnique({ where: { id: req.params.id } });
     if (!upload) return res.status(404).json({ error: 'Upload not found' });
 
-    const existing = ((upload.extractedMarkers ?? {}) as Record<string, ScoredMarker>)[markerId];
+    const existing = ((upload.extractedMarkers ?? {}) as Record<string, ScoredMarker>)[markerId as string];
     const rescored = buildScoredMarker(markerId, Number(value), {
       unit: unit ?? existing?.unit,
       flag: flag ?? existing?.flag ?? null,
       referenceRange: referenceRange ?? existing?.referenceRange ?? null,
-      label: existing?.label ?? MARKER_LABELS[markerId],
+      label: existing?.label ?? MARKER_LABELS[markerId as string],
       rawValue: String(value),
     });
 
@@ -155,7 +155,7 @@ labsRouter.patch('/uploads/:id/markers/:markerId', requireAuth(), requireClinici
       });
     }
 
-    const markers = { ...(upload.extractedMarkers as Record<string, ScoredMarker>), [markerId]: rescored };
+    const markers = { ...(upload.extractedMarkers as Record<string, ScoredMarker>), [markerId as string]: rescored };
     const updated = await prisma.labUpload.update({
       where: { id: req.params.id },
       data: { extractedMarkers: markers as object },
