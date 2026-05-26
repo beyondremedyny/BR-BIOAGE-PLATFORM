@@ -1,5 +1,5 @@
-import { formatDelta } from '../../../../packages/shared/src';
-import type { ScoredMarker } from '../../../../packages/shared/src';
+import { formatDelta } from '@br-bioage/shared';
+import type { ScoredMarker } from '@br-bioage/shared';
 
 const DOMAIN_NAMES: Record<string, string> = {
   d1: 'Metabolic Health',
