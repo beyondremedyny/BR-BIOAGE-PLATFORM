@@ -3,24 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev -w @br-bioage/api\" \"npm run dev -w @br-bioage/web\"",
-    "build": "npm run build -w @br-bioage/shared && npm run build -w @br-bioage/api && npm run build -w @br-bioage/web",
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate deploy",
-    "db:push": "prisma db push",
-    "job:retest-reminders": "npm run job:retest-reminders -w @br-bioage/api",
-    "postinstall": "prisma generate"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.2",
-    "prisma": "^6.8.2",
-    "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "@prisma/client": "^6.8.2"
+    "build": "npm run build -w packages/shared && npm run build -w apps/api"
   }
 }
