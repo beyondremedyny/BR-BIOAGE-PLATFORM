@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import type { ScoredMarker } from '../../../../packages/shared/src';
+import type { ScoredMarker } from '@br-bioage/shared';
 import { prisma } from '../lib/prisma';
 import { requireAuth, requireClinician } from '../middleware/auth';
 import { buildReportFromSources } from '../services/reportBuilder';
