@@ -166,4 +166,5 @@ reportsRouter.get('/:id/pdf', requireAuth(), async (req, res, next) => {
   res.redirect(report.pdfUrl);
 } catch (e) {
   next(e);
+}
 });
