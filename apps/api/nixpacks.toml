@@ -2,10 +2,10 @@
 nixPkgs = ["nodejs_20"]
 
 [phases.install]
-cmds = ["npm ci --ignore-scripts"]
+cmds = ["npm install --legacy-peer-deps"]
 
 [phases.build]
-cmds = ["npx prisma generate --schema=prisma/schema.prisma", "cd apps/api && npx tsc"]
+cmds = ["npm run build -w packages/shared && npm run build -w apps/api"]
 
 [start]
 cmd = "node apps/api/dist/index.js"
