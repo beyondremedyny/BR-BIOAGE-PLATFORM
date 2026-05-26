@@ -150,19 +150,20 @@ if (reportWithPatient.patient) {
     pdfUrl
   );
 }
-    res.json(report);
-  const reportId = String(req.params.id);
-const report = await prisma.reportCard.findUnique({ where: { id: reportId } });
-    next(e);
-  }
+   res.json(report);
+} catch (e) {
+  next(e);
+}
 });
 
 reportsRouter.get('/:id/pdf', requireAuth(), async (req, res, next) => {
-  try {
-    const report = await prisma.reportCard.findUnique({ where: { id: req.params.id } });
-    if (!report?.pdfUrl) return res.status(404).json({ error: 'PDF not available' });
-    res.redirect(report.pdfUrl);
-  } catch (e) {
-    next(e);
-  }
+ try {
+  const reportId = String(req.params.id);
+  const report = await prisma.reportCard.findUnique({ where: { id: reportId } });
+
+  if (!report?.pdfUrl) return res.status(404).json({ error: 'PDF not available' });
+
+  res.redirect(report.pdfUrl);
+} catch (e) {
+  next(e);
 });
