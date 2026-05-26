@@ -135,16 +135,24 @@ reportsRouter.post('/:id/publish', requireAuth(), requireClinician, async (req, 
       include: { patient: true },
     });
 
-    if (report.patient) {
-      await sendReportPublished(
-        report.patient.email,
-        report.patient.firstName,
-        report.id,
-        pdfUrl
-      );
-    }
+    const reportWithPatient = report as typeof report & {
+  patient?: {
+    email: string;
+    firstName: string;
+  } | null;
+};
+
+if (reportWithPatient.patient) {
+  await sendReportPublished(
+    reportWithPatient.patient.email,
+    reportWithPatient.patient.firstName,
+    reportWithPatient.id,
+    pdfUrl
+  );
+}
     res.json(report);
-  } catch (e) {
+  const reportId = String(req.params.id);
+const report = await prisma.reportCard.findUnique({ where: { id: reportId } });
     next(e);
   }
 });
