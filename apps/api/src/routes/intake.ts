@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { processIntakeSubmission, type IntakeAnswers } from '@br-bioage/shared';
+import { processIntakeSubmission, type IntakeAnswers } from '../../../../packages/shared/src';
 import { prisma } from '../lib/prisma';
 import { getOrCreatePatient, requireAuth } from '../middleware/auth';
 import { sendIntakeComplete } from '../services/email';

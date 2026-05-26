@@ -4,7 +4,7 @@ import {
   rescoreMarkers,
   MARKER_LABELS,
   type ScoredMarker,
-} from '@br-bioage/shared';
+} from '../../../../packages/shared/src';
 import { prisma } from '../lib/prisma';
 import { getOrCreatePatient, requireAuth, requireClinician } from '../middleware/auth';
 import { extractLabsFromFile, mapAndScoreMarkers } from '../services/labExtraction';
