@@ -1,5 +1,5 @@
-import type { LabExtractionResult } from '../../../../packages/shared/src';
-import { mapAndScoreMarkers } from '../../../../packages/shared/src';
+import type { LabExtractionResult } from '@br-bioage/shared';
+import { mapAndScoreMarkers } from '@br-bioage/shared';
 
 const LAB_EXTRACTION_SYSTEM_PROMPT = `
 You are a clinical laboratory report parser for Beyond Remedy, a physician-supervised longevity medicine company.
