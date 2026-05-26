@@ -6,6 +6,7 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
+    "prisma:generate": "prisma generate --schema=../../prisma/schema.prisma"
     "job:retest-reminders": "tsx src/jobs/runRetestCli.ts"
   },
   "dependencies": {
