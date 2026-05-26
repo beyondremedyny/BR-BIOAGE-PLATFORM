@@ -3,7 +3,7 @@ import {
   computeMasterBioAge,
   getChronologicalAge,
   type ScoredMarker,
-} from '../../../../packages/shared/src';
+} from '@br-bioage/shared';
 import { prisma } from '../lib/prisma';
 
 export async function buildReportFromSources(params: {
